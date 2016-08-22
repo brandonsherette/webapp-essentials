@@ -1,8 +1,8 @@
 module.exports = function() {
   'use strict';
 
-  var client = './client/';
-  var server = './server/';
+  var client = './src/client/';
+  var server = './src/server/';
   var clientApp = client + 'app/';
   var root = './';
 

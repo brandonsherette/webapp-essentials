@@ -7,7 +7,20 @@ var $ = require('gulp-load-plugins')({lazy: true});
 gulp.task('help', $.taskListing);
 gulp.task('default', ['help']);
 
-gulp.task('serve', function() {
+gulp.task('prepare-vendor', function() {
+  // TODO: prepare vendor files dynamically by using config file
+  var vendorFiles = [
+    './node_modules/bootstrap/dist/**/*',
+    './node_modules/jquery/dist/**/*',
+    './node_modules/systemjs/dist/system.js'
+  ];
+
+  // move over jquery and bootstrap
+  return gulp.src(vendorFiles)
+    .pipe(gulp.dest('./tmp/vendor/', {base: '.'}));
+});
+
+gulp.task('serve', ['prepare-vendor'], function() {
   var nodeOptions = getNodeOptions();
 
   return $.nodemon(nodeOptions)
