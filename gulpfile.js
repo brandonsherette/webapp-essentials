@@ -1,23 +1,28 @@
 'use strict';
 
 var config = require('./gulp.config')();
+var del = require('del');
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')({lazy: true});
 
 gulp.task('help', $.taskListing);
 gulp.task('default', ['help']);
 
+gulp.task('clean-tmp', function(done) {
+  del(config.tmp + '**/*', done);
+});
+
 gulp.task('prepare-vendor', function() {
   // TODO: prepare vendor files dynamically by using config file
   var vendorFiles = [
     './node_modules/bootstrap/dist/**/*',
     './node_modules/jquery/dist/**/*',
-    './node_modules/systemjs/dist/system.js'
+    './node_modules/systemjs/dist/**/*'
   ];
 
   // move over jquery and bootstrap
-  return gulp.src(vendorFiles)
-    .pipe(gulp.dest('./tmp/vendor/', {base: '.'}));
+  return gulp.src(vendorFiles, {base: './node_modules/'})
+    .pipe(gulp.dest(config.tmp + 'vendor'));
 });
 
 gulp.task('serve', ['prepare-vendor'], function() {

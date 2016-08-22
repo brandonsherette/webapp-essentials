@@ -8,24 +8,19 @@
     <link rel="stylesheet" href="/vendor/bootstrap/dist/css/bootstrap.min.css">
   </head>
   <body>
-    <header>
+    <header class="text-center">
       <h1>Web App Essentials Basic Template</h1>
     </header>
 
     <div class="container">
-      <p>Web app essentials basic template content.</p>
+      <p class="jumbotron">Web app essentials basic template content.</p>
     </div>
-
-    <footer>
-      <p>&copy; Brandon Sherette</p>
-    </footer>
 
     <script src="vendor/systemjs/dist/system.js"></script>
     <script>
       System.import('system.js');
+      System.import('$');
       System.import('main.js');
     </script>
-    <script src="vendor/jquery/dist/jquery.min.js"></script>
-    <script src="vendor/bootstrap/dist/js/bootstrap.min.js"></script>
   </body>
 </html>

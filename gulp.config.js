@@ -12,7 +12,8 @@ module.exports = function() {
     clientApp: clientApp,
     root: root,
     nodeServer: server + 'app.js',
-    defaultPort: '8001'
+    defaultPort: '8001',
+    tmp: './tmp/'
   };
 
   return config;
