@@ -1,0 +1,29 @@
+{
+  "name": "webapp-essentials",
+  "version": "0.0.1",
+  "description": "Base setup for web application essential features and code. This will allow a user to quickly start building out their web apps quickly by providing key features such as, express testing server configurations, standard gulp commands, wiredep, additional styling, installation of jQuery and Bootstrap, and many other essentail features. It will not be dependant on any frameworks such as Angular or Backbone, so you are free to use what other frameworks or libraries you want.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "webapp",
+    "essentials",
+    "javascript",
+    "html",
+    "bootstrap"
+  ],
+  "author": "Brandon Sherette <brandonsherette@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.1.0",
+    "systemjs": "^0.19.36"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-load-plugins": "^1.2.4",
+    "gulp-nodemon": "^2.1.0",
+    "gulp-task-listing": "^1.0.1"
+  }
+}
