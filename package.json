@@ -15,16 +15,26 @@
   ],
   "author": "Brandon Sherette <brandonsherette@gmail.com>",
   "license": "MIT",
-  "dependencies": {
-    "bootstrap": "^3.3.7",
-    "jquery": "^3.1.0",
-    "systemjs": "^0.19.36"
-  },
+  "dependencies": {},
   "devDependencies": {
     "del": "^2.2.2",
     "gulp": "^3.9.1",
+    "gulp-jspm-build": "0.0.15",
     "gulp-load-plugins": "^1.2.4",
     "gulp-nodemon": "^2.1.0",
-    "gulp-task-listing": "^1.0.1"
+    "gulp-task-listing": "^1.0.1",
+    "jspm": "^0.16.44"
+  },
+  "jspm": {
+    "configFile": "src/client/config.js",
+    "dependencies": {
+      "bootstrap": "github:twbs/bootstrap@^3.3.7",
+      "jquery": "npm:jquery@^3.1.0"
+    },
+    "devDependencies": {
+      "babel": "npm:babel-core@^5.8.24",
+      "babel-runtime": "npm:babel-runtime@^5.8.24",
+      "core-js": "npm:core-js@^1.1.4"
+    }
   }
 }

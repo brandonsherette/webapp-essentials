@@ -8,6 +8,15 @@ var $ = require('gulp-load-plugins')({lazy: true});
 gulp.task('help', $.taskListing);
 gulp.task('default', ['help']);
 
+gulp.task('build', function() {
+  $.jspmBuild({
+    bundles: [
+      { src: './src/client/app/**/*.js', dst: 'build.js'}
+    ]
+  })
+  .pipe(gulp.dest('./build'));
+});
+
 gulp.task('clean-tmp', function(done) {
   del(config.tmp + '**/*', done);
 });
@@ -15,8 +24,10 @@ gulp.task('clean-tmp', function(done) {
 gulp.task('prepare-vendor', function() {
   // TODO: prepare vendor files dynamically by using config file
   var vendorFiles = [
+    './node_modules/babel-standalone/**/*',
     './node_modules/bootstrap/dist/**/*',
     './node_modules/jquery/dist/**/*',
+    './node_modules/systemjs-plugin-babel/**/*',
     './node_modules/systemjs/dist/**/*'
   ];
 

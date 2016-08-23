@@ -5,6 +5,7 @@ var app = express();
 var port = 8001;
 
 app.use(express.static('./tmp'));
+app.use(express.static('./jspm_packages'));
 app.use(express.static('./src/client'));
 app.use(express('./'));
 // any deep link calls should return index.html
