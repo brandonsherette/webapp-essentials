@@ -7,7 +7,7 @@ console.info(App);
 App.init();
 
 $(document).ready(function() {
-  console.info('Document Ready Fool!');
+  console.info('Document Ready!');
   
   App.init();
 });
