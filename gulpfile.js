@@ -67,9 +67,25 @@ gulp.task('clean-build', function(done) {
 });
 
 /**
- * Serves the app using Express Server. Currently only supports Development.
+ * Serves the app using Express Server for development.
  */
-gulp.task('serve', function() {
+gulp.task('serve-dev', function() {
+  // true for isDev
+  return serve(true);
+});
+
+/**
+ * Serves the build version of the application.
+ */
+gulp.task('serve-build', ['build'], function() {
+  return serve(false);
+});
+
+///////////////////////
+/**
+ * Serves the server to the user.
+ */
+function serve(isDev) {
   var nodeOptions = getNodeOptions();
 
   return $.nodemon(nodeOptions)
@@ -86,17 +102,16 @@ gulp.task('serve', function() {
     .on('exit', function() {
       console.log('*** NODEMON EXITED');
     })
-});
-
-///////////////////////
+}
 
 /**
  * Gets the node server options.
  */
-function getNodeOptions() {
+function getNodeOptions(isDev) {
   return {
     script: config.nodeServer,
     delayTime: 1,
+    env: isDev ? 'dev' : 'build',
     watch: [config.server]
   };
 }
