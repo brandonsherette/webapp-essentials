@@ -8,39 +8,67 @@ var $ = require('gulp-load-plugins')({lazy: true});
 gulp.task('help', $.taskListing);
 gulp.task('default', ['help']);
 
-gulp.task('build', function() {
-  /*return gulp.src('./src/client/main.js')
-    .pipe($.jspm())
-    .pipe(gulp.dest('build/'));*/
-  $.jspmBuild({
+/**
+ * Builds out all app assets into the build folder. Cleans old build data before building everything back up.
+ */
+gulp.task('build', ['clean-build', 'bundle-app', 'build-html', 'build-images', 'build-styles'], function() {
+  console.log('Build Completed!');
+  console.log('build can be found @ ' + config.build);
+});
+
+/**
+ * Bundles the app in a single js file to be deployed in the build folder.
+ */
+gulp.task('bundle-app', function() {
+  // TODO: Add version number to build and incrementations
+  // this will force browser to get the most recent copy of the build
+
+  return $.jspmBuild({
     bundles: [
-      { src: './src/client/main.js', dst: 'build.js'},
+      { src: 'main.js', dst: 'build.js'},
     ],
-    baseUrl: './src/client',
+    baseUrl: config.client,
+    bundleSfx: true,
     defaultJSExtensions: true
   })
-  .pipe(gulp.dest('./build'));
+  .pipe(gulp.dest(config.build));
 });
 
-gulp.task('clean-tmp', function(done) {
-  del(config.tmp + '**/*', done);
+/**
+ * Copies over the html files to the build folder.
+ */
+gulp.task('build-html', function() {
+  return gulp.src(config.client + 'index.html')
+    .pipe(gulp.dest(config.build));
 });
 
-gulp.task('prepare-vendor', function() {
-  // TODO: prepare vendor files dynamically by using config file
-  var vendorFiles = [
-    './node_modules/babel-standalone/**/*',
-    './node_modules/bootstrap/dist/**/*',
-    './node_modules/jquery/dist/**/*',
-    './node_modules/systemjs-plugin-babel/**/*',
-    './node_modules/systemjs/dist/**/*'
-  ];
-
-  // move over jquery and bootstrap
-  return gulp.src(vendorFiles, {base: './node_modules/'})
-    .pipe(gulp.dest(config.tmp + 'vendor'));
+/**
+ * Copies over the images folder to the build folder.
+ */
+gulp.task('build-images', function() {
+  return gulp.src(config.client + 'images/**/*')
+    .pipe(gulp.dest(config.build + 'images/'));
 });
 
+/**
+ * Builds the styles and places them in the build folder.
+ */
+gulp.task('build-styles', function() {
+  // TODO: add building sass
+  return gulp.src(config.client + 'images/**/*')
+    .pipe(gulp.dest(config.build + 'images'));
+});
+
+/**
+ * Cleans the build folder.
+ */
+gulp.task('clean-build', function(done) {
+  del(config.build + '**/*', done);
+});
+
+/**
+ * Serves the app using Express Server. Currently only supports Development.
+ */
 gulp.task('serve', function() {
   var nodeOptions = getNodeOptions();
 
