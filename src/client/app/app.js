@@ -1,8 +1,13 @@
 import UserModel from 'app/user.model';
-import $ from 'jquery';
+import Notification from 'app/notification';
 
-export const App = {
-  init: function() {
+let App = (function() {
+  return {
+    init: init
+  };
+
+  function init() {
+    console.info('App Enter!');
     console.info('Initialized');
     console.info(UserModel);
 
@@ -15,5 +20,9 @@ export const App = {
     console.info($);
 
     $('p').text(model.toString());
+
+    Notification.notify('Hello World');
   }
-};
+}());
+
+export default App;

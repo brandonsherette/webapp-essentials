@@ -9,10 +9,15 @@ gulp.task('help', $.taskListing);
 gulp.task('default', ['help']);
 
 gulp.task('build', function() {
+  /*return gulp.src('./src/client/main.js')
+    .pipe($.jspm())
+    .pipe(gulp.dest('build/'));*/
   $.jspmBuild({
     bundles: [
-      { src: './src/client/app/**/*.js', dst: 'build.js'}
-    ]
+      { src: './src/client/main.js', dst: 'build.js'},
+    ],
+    baseUrl: './src/client',
+    defaultJSExtensions: true
   })
   .pipe(gulp.dest('./build'));
 });
@@ -36,7 +41,7 @@ gulp.task('prepare-vendor', function() {
     .pipe(gulp.dest(config.tmp + 'vendor'));
 });
 
-gulp.task('serve', ['prepare-vendor'], function() {
+gulp.task('serve', function() {
   var nodeOptions = getNodeOptions();
 
   return $.nodemon(nodeOptions)

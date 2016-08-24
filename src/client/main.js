@@ -1,9 +1,10 @@
-//SystemJS.import('app/app.js');
-import { App } from 'app/app.js';
-import $ from 'jquery';
+import App from 'app/app';
 
 console.log($.fn.jquery);
 console.info('Main Entered');
+console.info(App);
+
+App.init();
 
 $(document).ready(function() {
   console.info('Document Ready Fool!');
