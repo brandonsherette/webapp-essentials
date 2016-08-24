@@ -26,6 +26,10 @@ gulp.task('bundle-app', function() {
   // this will force browser to get the most recent copy of the build
 
   return $.jspmBuild({
+    buildOptions: {
+      minify: true,
+      mangle: true
+    },
     bundles: [
       { src: 'main.js', dst: 'build.js'},
     ],
@@ -33,6 +37,7 @@ gulp.task('bundle-app', function() {
     bundleSfx: true,
     defaultJSExtensions: true
   })
+  .pipe($.uglify())
   .pipe(gulp.dest(config.build));
 });
 
@@ -41,7 +46,7 @@ gulp.task('bundle-app', function() {
  */
 gulp.task('build-html', function() {
   return gulp.src(config.client + 'index.html')
-    .pipe(useref())
+    .pipe($.useref())
     .pipe(gulp.dest(config.build));
 });
 
