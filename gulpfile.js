@@ -5,6 +5,8 @@ var del = require('del');
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')({lazy: true});
 
+var port = process.env.PORT || config.defaultPort;
+
 gulp.task('help', $.taskListing);
 gulp.task('default', ['help']);
 
@@ -39,6 +41,7 @@ gulp.task('bundle-app', function() {
  */
 gulp.task('build-html', function() {
   return gulp.src(config.client + 'index.html')
+    .pipe(useref())
     .pipe(gulp.dest(config.build));
 });
 
@@ -71,14 +74,14 @@ gulp.task('clean-build', function(done) {
  */
 gulp.task('serve-dev', function() {
   // true for isDev
-  return serve(true);
+  serve(true);
 });
 
 /**
  * Serves the build version of the application.
  */
-gulp.task('serve-build', ['build'], function() {
-  return serve(false);
+gulp.task('serve-build', function() {
+  serve(false);
 });
 
 ///////////////////////
@@ -86,7 +89,7 @@ gulp.task('serve-build', ['build'], function() {
  * Serves the server to the user.
  */
 function serve(isDev) {
-  var nodeOptions = getNodeOptions();
+  var nodeOptions = getNodeOptions(isDev);
 
   return $.nodemon(nodeOptions)
     .on('restart', [], function() {
@@ -111,7 +114,10 @@ function getNodeOptions(isDev) {
   return {
     script: config.nodeServer,
     delayTime: 1,
-    env: isDev ? 'dev' : 'build',
+    env: {
+      'PORT': port,
+      'NODE_ENV': isDev ? 'dev' : 'build'
+    },
     watch: [config.server]
   };
 }
